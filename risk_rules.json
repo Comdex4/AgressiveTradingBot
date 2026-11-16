@@ -1,0 +1,113 @@
+{
+  "bot": {"name": "BlitzTrader", "config_version": 1},
+
+  "execution": {
+    "mode": "paper",
+    "paper_min_cycle_days_before_live": 5,
+    "max_orders_per_cycle": 12,
+    "max_new_positions_per_day": 5,
+    "trade_window_et": ["09:35", "15:58"],
+    "entry_window_et": ["15:20", "15:58"],
+    "early_close_trade_end_et": "12:58"
+  },
+
+  "sleeve": {
+    "allocation_pct": 0.25,
+    "min_order_dollars": 1.0,
+    "cash_buffer_dollars": 0.0
+  },
+
+  "universe": {
+    "symbols": [
+      "AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META", "TSLA", "AMD", "AVGO", "NFLX",
+      "CRM", "ORCL", "ADBE", "INTC", "QCOM", "MU", "CSCO", "IBM", "TSM", "ASML",
+      "AMAT", "LRCX", "KLAC", "ON", "MRVL", "TXN", "ARM", "SMCI",
+      "PLTR", "COIN", "SHOP", "UBER", "SNAP", "ROKU", "SOFI", "HOOD", "RBLX", "DKNG",
+      "NET", "CRWD", "SNOW", "PYPL", "MSTR", "MARA", "RIVN", "AFRM", "ZM", "PTON",
+      "DOCU", "TDOC", "U", "FSLY", "UPST", "AI", "ETSY", "W", "PINS", "LYFT",
+      "TWLO", "OKTA", "ZS", "DDOG", "MDB", "BABA", "NIO", "LCID", "PLUG", "FCEL",
+      "TLRY", "CGC", "SPCE", "BYND", "GME", "AMC", "CHWY", "CVNA", "OPEN", "WBD",
+      "ABNB", "DASH", "RDDT", "CELH", "ENPH", "FSLR", "SEDG", "RUN",
+      "JPM", "BAC", "GS", "MS", "C", "WFC", "SCHW", "AXP", "V", "MA", "BLK",
+      "XOM", "CVX", "OXY", "COP", "EOG", "MPC", "VLO", "APA", "DVN", "SLB", "HAL", "RIG",
+      "BA", "CAT", "GE", "F", "GM", "CLF", "FCX", "AA", "NEM",
+      "WYNN", "LVS", "MGM", "CCL", "NCLH", "RCL", "UAL", "AAL", "DAL", "LUV",
+      "DIS", "NKE", "SBUX", "WMT", "COST", "HD", "LOW", "MCD", "LULU", "ULTA",
+      "CMG", "TGT", "BBY", "M", "KSS", "TJX", "EBAY", "T", "VZ",
+      "PFE", "LLY", "UNH", "JNJ", "MRNA", "GILD", "BIIB", "VRTX", "REGN", "AMGN",
+      "ABBV", "BMY", "MRK", "CVS",
+      "SPY", "QQQ", "IWM", "DIA", "XLF", "XLE", "XLK", "XLV", "XLI", "XLY", "XLP", "XLU",
+      "SMH", "ARKK", "XBI", "KRE", "XOP", "GDX", "EEM", "FXI",
+      "TQQQ", "SOXL", "UPRO", "TNA", "TECL", "FAS", "UDOW", "LABU"
+    ],
+    "exclude_foreign_holdings": true
+  },
+
+  "common": {"min_price": 5.0, "min_avg_dollar_volume": 20000000},
+
+  "regime": {
+    "enabled": true, "symbol": "SPY", "sma": 200,
+    "bear_size_mult": 0.5, "bear_blocks": ["breakout", "gap"]
+  },
+
+  "setup_priority": ["breakout", "dip", "gap"],
+
+  "setups": {
+    "dip": {
+      "enabled": true,
+      "trend_sma": 200, "rsi_period": 2, "rsi_entry": 10,
+      "min_atr_pct": 0.025, "min_momentum_rank": 0.7, "rank": "momentum",
+      "exit_sma": 5, "exit_above_prior_high": true, "max_hold_days": 5,
+      "stop_atr_mult": 3.0, "stop_min_pct": 0.03, "stop_max_pct": 0.15
+    },
+    "breakout": {
+      "enabled": true,
+      "lookback": 20, "fast_sma": 50, "slow_sma": 200,
+      "min_rel_volume": 1.5, "min_ibs": 0.5, "max_extension_pct": 0.15, "min_atr_pct": 0.025,
+      "max_hold_days": 3, "extend_hold_days": 0,
+      "stop_atr_mult": 2.0, "stop_min_pct": 0.02, "stop_max_pct": 0.12
+    },
+    "gap": {
+      "enabled": false,
+      "min_gap_pct": 0.04, "min_rel_volume": 2.0, "min_ibs": 0.6, "fast_sma": 50,
+      "max_hold_days": 3, "extend_hold_days": 0, "stop_min_pct": 0.02, "stop_max_pct": 0.10
+    }
+  },
+
+  "sizing": {
+    "max_positions": 5,
+    "max_position_pct": 0.20,
+    "risk_per_trade_pct": 0.0,
+    "max_exposure_pct": 1.0
+  },
+
+  "checks": {
+    "max_quote_drift_pct": 0.02,
+    "max_spread_pct": 0.002,
+    "earnings_blackout_trading_days": 3,
+    "exit_before_earnings": true,
+    "disaster_stop_mult": 1.6,
+    "disaster_stop_max_pct": 0.22,
+    "allow_same_day_exit": false
+  },
+
+  "loss_limits": {
+    "daily_loss_pct": 0.05,
+    "weekly_loss_pct": 0.10,
+    "drawdown_half_size_pct": 0.15,
+    "drawdown_halt_pct": 0.25,
+    "consecutive_losses_for_cooldown": 4,
+    "cooldown_trading_days": 1
+  },
+
+  "locks": {"after_stop_days": 3},
+
+  "calendar": {
+    "holidays": [
+      "2026-11-26", "2026-12-25",
+      "2027-01-01", "2027-01-18", "2027-02-15", "2027-03-26", "2027-05-31", "2027-06-18",
+      "2027-07-05", "2027-09-06", "2027-11-25", "2027-12-24"
+    ],
+    "early_closes": ["2026-11-27", "2026-12-24", "2027-11-26"]
+  }
+}
